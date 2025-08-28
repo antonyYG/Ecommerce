@@ -4,11 +4,9 @@
         'route' => route('admin.dashboard')
     ],
     [
-        'name' => 'Ordenes'
+        'name' => 'Conductores',
+        'route' => route('admin.drivers.index')
         
     ]
 ]">
-
-    @livewire('admin.orders.order-table')
-
 </x-admin-layout>

@@ -17,7 +17,7 @@ class Order extends Model
     protected $casts=[
         'content' => 'array',
         'address' => 'array',
-        'stauts' =>  OrderStatus::class
+        'status' =>  OrderStatus::class
     ];
 
     public function user(){
@@ -34,5 +34,9 @@ class Order extends Model
         'total',
         'status'
     ];
+
+    public function shipments(){
+        return $this->hasMany(Shipment::class);
+    }
 
 }

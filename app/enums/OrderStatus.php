@@ -8,8 +8,8 @@ enum OrderStatus:int
     case Processing = 2 ;
     case Shipped = 3; 
     case Completed = 4 ;
-    case Cancelled = 5 ;
-    case Failed = 6 ;
-    case Refunded = 7 ;
+    case Failed = 5 ;
+    case Refunded = 6 ;
+    case Cancelled = 7 ;
 
 }
