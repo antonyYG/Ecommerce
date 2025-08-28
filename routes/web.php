@@ -9,10 +9,7 @@ use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Order;
-use App\Models\Product;
-use App\Models\Variant;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class,'index'])->name('welcome.index');
