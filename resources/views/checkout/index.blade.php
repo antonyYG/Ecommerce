@@ -42,37 +42,6 @@
                                 </div>
 
                             </li>
-
-                            <li>
-                                <label class="p-4 flex items-center">
-                                    <input type="radio" value="2" x-model="pago">
-
-                                    <span class="ml-2">
-                                        Deposito bancario o yape
-                                    </span>
-
-                                </label>
-
-                                <div class="p-4 bg-gray-100 flex justify-center border-top border-gray-400" 
-                                x-show="pago==2">
-
-                                    <div>
-                                        <p>1. Pagp por deposito / tranferencia bancaria</p>
-                                        <p>- BCP soles: 198-987654321-98</p>
-                                        <p>- CCI: 002-987654321</p>
-                                        <p>- Razon Social: Ecommerce Pepe</p>
-                                        <p>- Ruc: 20203456543</p>
-                                        <p>2 Pago por yape</p>
-                                        <p>- Yape al numero: 987654321 (Pepe)</p>
-                                        <p>
-                                            Enviar a pepe
-                                        </p>
-                                    </div>
-
-                                </div>
-
-                            </li>
-
                         </ul>
 
                     </div>
@@ -85,7 +54,7 @@
                     
                     <ul class="space-y-4 mb-4">
 
-                        @foreach (Cart::instance('shopping')->content() as $item)
+                        @foreach ($content as $item)
                             <li class="flex items-center space-x-4">
 
                                 <div class="flex-shrink-0 relative">
@@ -122,7 +91,7 @@
                         </p>
 
                         <p>
-                            S/ . {{Cart::instance('shopping')->subtotal()}}
+                            S/ . {{$subtotal}}
                         </p>
 
                     </div>
@@ -136,7 +105,7 @@
                         </p>
 
                         <p>
-                            S/ . 5
+                            S/ . {{$delivery}}
                         </p>
 
                     </div>
@@ -150,7 +119,7 @@
                         </p>
 
                         <p>
-                            S/ . {{Cart::instance('shopping')->subtotal() + 5}}
+                            S/ . {{$total}}
                         </p>
 
                     </div>
@@ -216,7 +185,7 @@
        
         </script>
         <script type="text/javascript">
-        let amount = {{Cart::instance('shopping')->subtotal()}};
+        let amount = {{$total}};
         let purchasenumber = Math.floor(Math.random() * 10000000);
         function openForm() {
             VisanetCheckout.configure({

@@ -66,6 +66,18 @@
             'icon' => 'fa-solid fa-shopping-cart',
             'route' => route('admin.orders.index'),
             'active' => request()->routeIs('admin.orders.*')
+        ],
+        [
+            'name' => 'Envios',
+            'icon' => 'fa-solid fa-shipping-fast',
+            'route' => route('admin.shipments.index'),
+            'active' => request()->routeIs('admin.shipments.*')
+        ],
+        [
+            'name' => 'Usuarios',
+            'icon' => 'fa-solid fa-shipping-fast',
+            'route' => route('admin.users.index'),
+            'active' => request()->routeIs('admin.users.*')
         ]
     ];    
 @endphp

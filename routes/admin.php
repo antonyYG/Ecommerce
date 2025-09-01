@@ -7,12 +7,15 @@ use App\Http\Controllers\Admin\FamilyController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Admin\UserComponent;
 
 Route::get('/',function(){
     return view('admin.dashboard');
-})->name('dashboard');
+})->middleware('can:access dashboard')
+->name('dashboard');
 
 Route::get('/options',[OptionController::class, 'index'])->name('options.index');
 
@@ -31,4 +34,8 @@ Route::resource('covers',CoverController::class);
 
 Route::resource('drivers', DriverController::class);
 
+Route::get('shipments',[ShipmentController::class,'index'])->name('shipments.index');
+
 Route::get('orders',[OrderController::class,'index'])->name('orders.index');
+
+Route::get('users', UserComponent::class)->name('users.index');

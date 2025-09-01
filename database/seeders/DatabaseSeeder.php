@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        
 
         User::factory()->create([
             'name' => 'pepe',
@@ -26,10 +26,17 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('12345678')
         ]);
 
+        User::factory(20)->create();
+
         $this->call([
             FamilySeeder::class,
             OptionSeeder::class,
+            PermissionSeeder::class,
+            RoleSeeder::class
         ]);
         Product::factory(150)->create();
+
+
+
     }
 }

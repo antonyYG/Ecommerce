@@ -32,7 +32,9 @@ Route::get('gracias',function(){
     return view('gracias');
 })->name('gracias');
 
-Route::get('shipping' , [ShippingController::class, 'index'])->name('shipping.index');
+Route::get('shipping' , [ShippingController::class, 'index'])
+->middleware('auth')
+->name('shipping.index');
 
 Route::middleware([
     'auth:sanctum',

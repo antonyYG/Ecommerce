@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class OptionController extends Controller
+class ShipmentController extends Controller
 {
+
     public function __construct()
     {
-        $this->middleware('can:manage options');
+        $this->middleware('can:manage shipments');
     }
+
     public function index(){
-        return view('admin.options.index');
+        return view('admin.shipments.index');
     }
 }

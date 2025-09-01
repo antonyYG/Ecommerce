@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class CoverController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('can:manage covers');
+    }
+
     /**
      * Display a listing of the resource.
      */

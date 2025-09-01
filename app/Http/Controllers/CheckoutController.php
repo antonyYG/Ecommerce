@@ -4,18 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Order;
+use App\Models\Variant;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class CheckoutController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index()
     {   
+
+        Cart::instance('shopping');
+
+        $content = Cart::content()->filter(function ($item){
+            return $item->qty <= $item->options['stock'];
+        });
+
+        $subtotal = $content->sum(function ($item){
+            return $item->subtotal;
+        });
+
+        $delivery = number_format(5,2);
+
+        $total = $subtotal + $delivery;
+
         $accessToken = $this->generateAccessToken();
-        $sessionToken =  $this->generateSessionToken($accessToken);
+        $sessionToken =  $this->generateSessionToken($accessToken,$total);
         
-        return view('checkout.index',compact('sessionToken'));
+        return view('checkout.index',compact('total','delivery','subtotal','content','sessionToken'));
     }
 
     public function generateAccessToken()
@@ -33,7 +52,7 @@ class CheckoutController extends Controller
             ->body();
     } 
 
-    public function generateSessionToken($accessToken)
+    public function generateSessionToken($accessToken,$total)
     {
         $merchant_id=config('services.niubiz.merchant_id');
         $url_api = config('services.niubiz.url_api') . "/api.ecommerce/v2/ecommerce/token/session/{$merchant_id}";
@@ -45,7 +64,7 @@ class CheckoutController extends Controller
         ])
         ->post($url_api,[
             'channel' => 'web',
-            'amount' => Cart::instance('shopping')->subtotal(),
+            'amount' => $total,
             'antifraud' => [
                 'client_ip' => request()->ip(),
                 'merchantDefineData' => [
@@ -90,19 +109,30 @@ class CheckoutController extends Controller
 
         if (isset($response['dataMap']) && $response['dataMap']['ACTION_CODE'] === '000' ) {
 
+            Cart::instance('shopping');
+
+            $content = Cart::content()->filter(function ($item){
+                return $item->qty <= $item->options['stock'];
+            });
+
             $address = Address::where('user_id',auth()->id())
             ->where('default',true)
             ->first();
 
             Order::create([
                 'user_id' => auth()->id(),
-                'content' => Cart::instance('shopping')->content(),
+                'content' => $content,
                 'address' => $address,
                 'payment_id' => $response['dataMap']['TRANSACTION_ID'],
-                'total' => Cart::subtotal()
+                'total' => $response['dataMap']['AMOUNT']
             ]);
 
-            Cart::destroy();
+            foreach ($content as $item) {
+                Variant::where('sku',$item->options['sku'])
+                ->decrement('stock',$item->qty);
+
+                Cart::remove($item->rowId);
+            }
             
             return redirect()->route('gracias');
 

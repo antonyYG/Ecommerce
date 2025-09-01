@@ -11,28 +11,48 @@
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
+            background: #f9f9f9;
+            color: #333;
         }
         .ticket{
-            max-width: 400px;
+            max-width: 420px;
             margin: 20px auto;
             padding: 20px;
+            background: #fff;
+            border: 2px solid #4a90e2;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
         }
         h1,h2,h3,h4{
             text-align: center;
-            margin-bottom: 10px
+            margin-bottom: 10px;
+            color: #4a90e2;
+        }
+        h3{
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 12px;
         }
         .info{
-            margin-bottom: 20px
+            margin-bottom: 20px;
         }
         .info div{
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .info div span{
+            font-weight: bold;
+            color: #555;
         }
         .footer{
             text-align: center;
             font-size: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed #ccc;
+            color: #777;
         }
     </style>
-
 </head>
 <body>
     <div class="ticket">
@@ -42,25 +62,21 @@
 
         <div class="info">
             <h3>
-                Informacion de la compañia
+                Información de la compañía
             </h3>
 
             <div>
-                Nombre: Ecommerce Pepe
+                <span>Nombre:</span> Ecommerce Pepe
             </div>
-
             <div>
-                Ruc: 21232345672
+                <span>RUC:</span> 21232345672
             </div>
-
             <div>
-                Telefono: 987654321
+                <span>Teléfono:</span> 987654321
             </div>
-
             <div>
-                Correo: pepe@gmail.com
+                <span>Correo:</span> pepe@gmail.com
             </div>
-
         </div>
 
         <div class="info">
@@ -69,27 +85,23 @@
             </h3>
 
             <div>
-                Nombre: {{$order->address['receiver_info']['name'] . ' '.$order->address['receiver_info']['last_name'] }}
+                <span>Nombre:</span> {{$order->address['receiver_info']['name'] . ' '.$order->address['receiver_info']['last_name'] }}
             </div>
-
             <div>
-                Documento: {{$order->address['receiver_info']['document_number']}}
+                <span>Documento:</span> {{$order->address['receiver_info']['document_number']}}
             </div>
-
             <div>
-                Direccion: {{$order->address['description']}} - {{$order->address['district']}} ({{$order->address['reference']}})
+                <span>Dirección:</span> {{$order->address['description']}} - {{$order->address['district']}} ({{$order->address['reference']}})
             </div>
-
             <div>
-                Telefono: {{$order->address['receiver_info']['phone']}}
+                <span>Teléfono:</span> {{$order->address['receiver_info']['phone']}}
             </div>
-
         </div>
 
         <div class="footer">
-            ¡Gracias por su compra!
+            ¡Gracias por su compra! <br>
+            <small>Conserve este ticket como comprobante.</small>
         </div>
-
     </div>
 </body>
 </html>
