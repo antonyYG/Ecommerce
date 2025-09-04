@@ -51,6 +51,25 @@
             Swal.fire({!! json_encode(session('swal')) !!});
         </script>
         @endif
+        <script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '68b865b8364dfd4299fb6e5b' }, // tu ID de proyecto
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          }
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
+      v.type = "text/javascript"; 
+      s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
+
         <script>
             Livewire.on('swal',data => {
                 Swal.fire(data[0]);
