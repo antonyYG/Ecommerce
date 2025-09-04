@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y \
 # Habilitar mod_rewrite para Apache (necesario para Laravel)
 RUN a2enmod rewrite
 
+# Reemplazar configuración para que DocumentRoot apunte a /public
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf /etc/apache2/apache2.conf
+
 # Copiar Composer
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
