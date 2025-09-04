@@ -7,13 +7,6 @@
         "laravel",
         "framework"
     ],
-    
-    "config": {
-    "platform": {
-        "php": "8.2",
-        "ext-bcmath": "8.2"
-    }
-},
     "license": "MIT",
     "require": {
         "php": "^8.2",
